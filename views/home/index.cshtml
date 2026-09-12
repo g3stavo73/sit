@@ -1,0 +1,56 @@
+@model List<CalculatorApp.Models.CalculationItem>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="calculator-card">
+    <h2>Calculadora .NET 8</h2>
+    
+    <div class="display-container">
+        <div id="subDisplay" class="sub-display"></div>
+        <div id="mainDisplay" class="main-display">0</div>
+    </div>
+
+    <div id="errorMessage" class="error-banner hidden"></div>
+
+    <div class="keypad">
+        <button class="btn btn-action" onclick="clearCalculator()">C</button>
+        <button class="btn btn-action" onclick="deleteLast()">DEL</button>
+        <button class="btn btn-op" onclick="setOp('/')">/</button>
+        <button class="btn btn-op" onclick="setOp('*')">×</button>
+
+        <button class="btn" onclick="appendNum('7')">7</button>
+        <button class="btn" onclick="appendNum('8')">8</button>
+        <button class="btn" onclick="appendNum('9')">9</button>
+        <button class="btn btn-op" onclick="setOp('-')">-</button>
+
+        <button class="btn" onclick="appendNum('4')">4</button>
+        <button class="btn" onclick="appendNum('5')">5</button>
+        <button class="btn" onclick="appendNum('6')">6</button>
+        <button class="btn btn-op" onclick="setOp('+')">+</button>
+
+        <button class="btn" onclick="appendNum('1')">1</button>
+        <button class="btn" onclick="appendNum('2')">2</button>
+        <button class="btn" onclick="appendNum('3')">3</button>
+        <button class="btn btn-equals" onclick="calculate()">=</button>
+
+        <button class="btn btn-zero" onclick="appendNum('0')">0</button>
+        <button class="btn" onclick="appendNum('.')">.</button>
+    </div>
+</div>
+
+<div class="history-card">
+    <div class="history-header">
+        <h3>Histórico de Operações</h3>
+        <button class="btn-clear-history" onclick="clearHistory()">Limpar</button>
+    </div>
+    <ul id="historyList" class="history-list">
+        @foreach (var item in Model)
+        {
+            <li>
+                <span>@item.Number1 @item.Operation @item.Number2</span>
+                <strong>= @item.Result</strong>
+            </li>
+        }
+    </ul>
+</div>
